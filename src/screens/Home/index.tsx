@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
 
@@ -24,6 +25,15 @@ function Home() {
     const [nomeFiltro, setNomeFiltro] = useState('');
     const [pokemons, setPokemons] = useState<PokemonDTO[]>([]);
     const [pokemonsFiltro, setPokemonsFiltro] = useState<PokemonDTO[]>([]);
+
+    const navigation = useNavigation();
+
+    function navegarParaDetalhes(pokemon: PokemonDTO) {
+        console.log('a');
+        navigation.navigate('Detalhes' as never, {
+            pokemon: pokemon
+        } as never);
+    }
 
     function alteraTipoFiltro() {
         setDecrescente(estadoAnterior => !estadoAnterior);
@@ -73,7 +83,7 @@ function Home() {
                 </Header>
                 <InputTexto 
                     placeholder="Procurar"
-                    onChangeText={(texto) => alteraNomeFiltro(texto)} //ou só onChangeText={alteraNomeFiltro}
+                    onChangeText={alteraNomeFiltro}
                 />
                 <FlatList 
                     data={pokemonsFiltro}
@@ -87,7 +97,10 @@ function Home() {
                         width: '100%'
                     }}
                     renderItem={({item}) => (
-                        <SmallCard pokemon={item} />
+                        <SmallCard 
+                            pokemon={item}
+                            onPress={() => navegarParaDetalhes(item)} 
+                        />
                     )}
                 />
             </Container>

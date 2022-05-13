@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableOpacityProps } from "react-native";
 import { 
     Container, 
     ConteudoCodigo, 
@@ -12,14 +13,15 @@ import Charmander from '../../assets/pokemons/Charmander.svg';
 import { PokemonDTO } from "../../dtos/PokemonDTO";
 import retornaSvg from "../../utils/retornaSvg";
 
-interface SmallCardProps {
+interface SmallCardProps extends TouchableOpacityProps {
     pokemon: PokemonDTO;
 }
 
-function SmallCard({pokemon}: SmallCardProps) {
+function SmallCard({pokemon, ...rest}: SmallCardProps) {
     return (
         <Container
             type={pokemon.types[0].name}
+            {...rest}
         >
             <ConteudoCodigo>
                 <Codigo type={pokemon.types[0].name}>{pokemon.code}</Codigo>

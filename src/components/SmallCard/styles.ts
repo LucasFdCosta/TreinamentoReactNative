@@ -5,26 +5,27 @@ interface Props {
     type: PokemonName;
 }
 
-export const Container = styled.View<Props>`
-    width: 118px;
-    height: 114px;
+export const Container = styled.TouchableOpacity<Props>`
+    width: 104px;
+    height: 112px;
+
     border-radius: 8px;
     border-width: 1px;
     border-color: ${({theme, type}) => theme[type]};
-    margin: 8px 8px 8px 0px;
+    margin: 8px 8px 8px 8px;
 `;
 
 export const ConteudoCodigo = styled.View`
     width: 100%;
     align-items: flex-end;
     justify-content: center;
-    padding: 4px 8px 0px 8px;
+    padding: 4px 8px 0 8px;
 `;
 
 export const Codigo = styled.Text<Props>`
     font-size: 8px;
     font-family: ${({theme}) => theme.fonts.REGULAR};
-    color: ${({theme, type}) => theme[type]};
+    color: ${({theme, type}) => theme[type]}   
 `;
 
 export const ConteudoSvg = styled.View`

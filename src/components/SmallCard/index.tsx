@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacityProps } from "react-native";
+
 import { 
     Container, 
     ConteudoCodigo, 
@@ -9,19 +9,32 @@ import {
     Nome
 } from './styles';
 
-import Charmander from '../../assets/pokemons/Charmander.svg';
+
 import { PokemonDTO } from "../../dtos/PokemonDTO";
 import retornaSvg from "../../utils/retornaSvg";
+import { useNavigation } from "@react-navigation/native";
 
-interface SmallCardProps extends TouchableOpacityProps {
+//Removido o extends sem necessidade já que o Container ja contem as propriedades que precisamos
+interface SmallCardProps{
     pokemon: PokemonDTO;
 }
 
 function SmallCard({pokemon, ...rest}: SmallCardProps) {
-    return (
+
+    //Logica de navegação, ja que esse componente não receberá dados diferentes de um pokemon
+    const navigation = useNavigation();
+
+    function navegarParaDetalhes(pokemon: PokemonDTO) {        
+        navigation.navigate('Detalhes' as never, {
+            pokemon: pokemon
+        } as never);
+    }
+    
+    return (        
         <Container
             type={pokemon.types[0].name}
-            {...rest}
+            onPress={() => navegarParaDetalhes(pokemon)}
+            {...rest}            
         >
             <ConteudoCodigo>
                 <Codigo type={pokemon.types[0].name}>{pokemon.code}</Codigo>

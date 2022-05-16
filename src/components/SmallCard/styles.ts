@@ -25,7 +25,7 @@ export const ConteudoCodigo = styled.View`
 export const Codigo = styled.Text<Props>`
     font-size: 8px;
     font-family: ${({theme}) => theme.fonts.REGULAR};
-    color: ${({theme, type}) => theme[type]}   
+    color: ${({theme, type}) => theme[type]};    
 `;
 
 export const ConteudoSvg = styled.View`

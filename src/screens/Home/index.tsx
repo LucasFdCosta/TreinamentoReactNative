@@ -26,14 +26,6 @@ function Home() {
     const [pokemons, setPokemons] = useState<PokemonDTO[]>([]);
     const [pokemonsFiltro, setPokemonsFiltro] = useState<PokemonDTO[]>([]);
 
-    const navigation = useNavigation();
-
-    function navegarParaDetalhes(pokemon: PokemonDTO) {
-        console.log('a');
-        navigation.navigate('Detalhes' as never, {
-            pokemon: pokemon
-        } as never);
-    }
 
     function alteraTipoFiltro() {
         setDecrescente(estadoAnterior => !estadoAnterior);
@@ -84,6 +76,7 @@ function Home() {
                 <InputTexto 
                     placeholder="Procurar"
                     onChangeText={alteraNomeFiltro}
+                    value={nomeFiltro}
                 />
                 <FlatList 
                     data={pokemonsFiltro}
@@ -98,8 +91,7 @@ function Home() {
                     }}
                     renderItem={({item}) => (
                         <SmallCard 
-                            pokemon={item}
-                            onPress={() => navegarParaDetalhes(item)} 
+                            pokemon={item}                            
                         />
                     )}
                 />

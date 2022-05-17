@@ -1,8 +1,11 @@
 import React from "react";
 import { Image } from "react-native";
+import { useAuth } from "../../hooks/auth";
 import { BackgroundImage, BotaoSair, Container, Conteudo, Header, Sair, Titulo } from "./styles";
 
 function Perfil() {
+    const {usuario, logoff, autenticarComIAS} = useAuth();
+
     return (
         <Container>
             <Header>
@@ -22,8 +25,10 @@ function Perfil() {
                         }}
                     />
                 </BackgroundImage>
-                <Titulo>Perfil</Titulo>
-                <BotaoSair>
+                <Titulo>{usuario}</Titulo>
+                <BotaoSair
+                    onPress={logoff}
+                >
                     <Sair>Sair</Sair>
                 </BotaoSair>
             </Conteudo>

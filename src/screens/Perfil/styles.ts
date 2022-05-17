@@ -24,7 +24,7 @@ export const Conteudo = styled.View`
     background-color: ${({theme}) => theme.background};
     align-items: center;
     justify-content: center;
-    margin-top: 41px;
+    margin-top: 20px;
 `;
 
 export const BackgroundImage = styled.View`
@@ -43,6 +43,7 @@ export const BotaoSair = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     border-radius: 8px;
+    margin-top: 30px;
     margin-bottom: 41px;
 `;
 

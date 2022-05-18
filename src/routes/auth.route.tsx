@@ -5,9 +5,11 @@ import Login from "../screens/Login";
 const Stack = createNativeStackNavigator();
 
 function AuthRoute() {
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Login" component={Login} />
-    </Stack.Navigator>
+    return (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={Login} />
+        </Stack.Navigator>
+    )
 }
 
 export default AuthRoute;

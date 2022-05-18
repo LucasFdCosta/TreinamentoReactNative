@@ -16,7 +16,7 @@ function Perfil() {
                 <BackgroundImage>
                     <Image 
                         source={{
-                            uri: ""
+                            uri: "https://png.pngtree.com/png-vector/20191023/ourlarge/pngtree-user-vector-icon-with-white-background-png-image_1849343.jpg"
                         }}
                         style={{
                             width: 130,
@@ -25,7 +25,7 @@ function Perfil() {
                         }}
                     />
                 </BackgroundImage>
-                <Titulo>{usuario}</Titulo>
+                <Titulo>{usuario?.usuarioNome}</Titulo>
                 <BotaoSair
                     onPress={logoff}
                 >

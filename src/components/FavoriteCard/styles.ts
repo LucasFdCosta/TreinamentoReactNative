@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Container = styled.View`
-    width: 100%;
+    width: 90%;
     flex-direction: row;
     background-color: ${({theme}) => theme.white};
     border-radius: 8px;
@@ -17,7 +17,8 @@ export const Container = styled.View`
     shadow-color: ${({theme}) => theme.dark_gray};
     shadow-offset: 0px 4px;
     shadow-opacity: 0.25;
-    shadow-radius: 4px
+    shadow-radius: 4px;
+    margin-left: 25px;
 `;
 
 export const ConteudoSvg = styled.View`

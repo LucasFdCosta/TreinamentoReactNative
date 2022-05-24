@@ -1,13 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme'
 import { useFonts } from 'expo-font';
 import { Poppins_700Bold, Poppins_400Regular } from '@expo-google-fonts/poppins';
-import Home from './src/screens/Home';
-import Detalhes from './src/screens/Detalhes';
 import Routes from './src/routes';
-import { AuthProvider, useAuth } from './src/hooks/auth';
+import { AuthProvider } from './src/hooks/auth';
+import SplashScreen from './src/screens/SplashScreen';
 
 export default function App() {
   
@@ -16,9 +14,21 @@ export default function App() {
     Poppins_400Regular
   });
 
-  if (!fontsLoaded) {
+  const [teste, setTeste] = useState(false);
+
+  function alteraState() {
+    setTimeout(() => {
+      setTeste(true)
+    }, 7000);
+  }
+
+  useEffect(() => {
+    alteraState()
+  }, [])
+
+  if (!fontsLoaded || !teste) {
     return (
-      <View/>
+      <SplashScreen/>
     );
   }
 

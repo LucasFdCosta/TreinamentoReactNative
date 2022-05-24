@@ -5,6 +5,10 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "backgroundColor": "#F7F7F7"
+    }
   }
 }

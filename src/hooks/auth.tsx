@@ -31,7 +31,7 @@ function AuthProvider({children}: AuthProviderProps) {
     const URL_ACESSO_IAS = 'http://192.168.10.40:91';
     const CLIENT_ID = '3f3f15d0-7231-4407-ac94-391e7fa33b2b';
     const RESPONSE_TYPE = 'code';
-    const REDIRECT_URI = 'exp://192.168.11.4:19000';
+    const REDIRECT_URI = 'exp://192.168.10.192:19000';
     const USUARIO_KEY_STORAGE = '@pokedex:usuario';
 
     async function autenticarComIAS() {

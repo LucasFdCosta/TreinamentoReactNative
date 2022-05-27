@@ -6,14 +6,20 @@ import api from "../services/api";
 import { UsuarioDTO } from "../dtos/UsuarioDTO";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 interface AuthProviderProps {
     children: ReactNode;
 }
 
+const URL_ACESSO_IAS = 'http://192.168.10.40:91';
+const CLIENT_ID = '3f3f15d0-7231-4407-ac94-391e7fa33b2b';
+const RESPONSE_TYPE = 'code';
+const REDIRECT_URI = 'exp://192.168.10.192:19000';
+const USUARIO_KEY_STORAGE = '@pokedex:usuario';
+
 function AuthProvider({children}: AuthProviderProps) {
     const [usuario, setUsuario] = useState<UsuarioDTO | null>(null);
 
+    
     async function getDadosCode(code:string) {
         const response = await api.post<UsuarioDTO>('/api/token', {
             code,
@@ -27,12 +33,6 @@ function AuthProvider({children}: AuthProviderProps) {
 
         return response.data && response.data.usuarioId != 0 ? response.data : null;
     }
-
-    const URL_ACESSO_IAS = 'http://192.168.10.40:91';
-    const CLIENT_ID = '3f3f15d0-7231-4407-ac94-391e7fa33b2b';
-    const RESPONSE_TYPE = 'code';
-    const REDIRECT_URI = 'exp://192.168.10.192:19000';
-    const USUARIO_KEY_STORAGE = '@pokedex:usuario';
 
     async function autenticarComIAS() {
         try {
@@ -58,10 +58,12 @@ function AuthProvider({children}: AuthProviderProps) {
         }
     }
 
+
     async function logoff() {
         setUsuario(null);
         await AsyncStorage.removeItem(USUARIO_KEY_STORAGE);
     }
+
 
     useEffect(() => {
         async function consultaUsuarioStorage() {
@@ -86,6 +88,7 @@ function AuthProvider({children}: AuthProviderProps) {
         </AuthContext.Provider>
     )
 }
+
 
 function useAuth() {
     const context = useContext(AuthContext);

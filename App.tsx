@@ -6,6 +6,7 @@ import { Poppins_700Bold, Poppins_400Regular } from '@expo-google-fonts/poppins'
 import Routes from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
 import SplashScreen from './src/screens/SplashScreen';
+import { FavoriteProvider } from './src/hooks/favorite';
 
 export default function App() {
   
@@ -14,19 +15,7 @@ export default function App() {
     Poppins_400Regular
   });
 
-  const [teste, setTeste] = useState(false);
-
-  function alteraState() {
-    setTimeout(() => {
-      setTeste(true)
-    }, 7000);
-  }
-
-  useEffect(() => {
-    alteraState()
-  }, [])
-
-  if (!fontsLoaded || !teste) {
+  if (!fontsLoaded) {
     return (
       <SplashScreen/>
     );
@@ -35,7 +24,9 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Routes />
+        <FavoriteProvider>
+          <Routes />
+        </FavoriteProvider>
       </AuthProvider>
     </ThemeProvider>
   );

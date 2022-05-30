@@ -1,6 +1,6 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { PokemonDTO } from "../../dtos/PokemonDTO";
 import retornaSvg from "../../utils/retornaSvg";
 import { 
@@ -21,49 +21,61 @@ import TypeCard from "../../components/TypeCard";
 import { useTheme } from "styled-components";
 import AboutData from "../../components/AboutData";
 import BaseStats from "../../components/BaseStats";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FavoritoDTO } from "../../dtos/FavoritoDTO";
-import { useAuth } from "../../hooks/auth";
+import { useFavorite } from "../../hooks/favorite";
 
 interface ParametrosRota {
     pokemon: PokemonDTO;
 }
 
-const FAVORITOS_KEY = "@TreinamentoReactNative:favoritos";
-
 function Detalhes() {
 
     const [pokemon, setPokemon] = useState<PokemonDTO>();
-    const {usuario} = useAuth();
+    const [favorito, setFavorito] = useState<boolean>();
+    const favorite = useFavorite();
     const tema = useTheme()
     const route = useRoute();
+    const isFocused = useIsFocused();
+
+    async function verificaFavoritos(id:number) {
+        const resultado = await favorite.validarFavorito(id);
+        setFavorito(resultado);
+    }
 
     useEffect(() => {
         const parametros = route.params as ParametrosRota;
         console.log(parametros.pokemon);
         setPokemon(parametros.pokemon);
-    }, [])
+        verificaFavoritos(parametros.pokemon.id);
+    }, [isFocused])
+
+    async function addPokemonFav(pokemon: PokemonDTO){
+        favorite.addFavoritos(pokemon);
+        setFavorito(favorito => !favorito);
+    }
+
+    async function removePokemonFav(pokemon: PokemonDTO){
+        Alert.alert('Confirme', 
+        `Deseja realmente remover o ${pokemon.name} do seus favoritos?`,
+        [
+            {
+                text: 'Não 😊',
+                style: "cancel",
+                onPress: () => {}
+            },
+            {
+                text: 'Sim 😢',
+                onPress: () => {
+                    favorite.removerStorage(pokemon.id);
+                    setFavorito(favorito => !favorito);
+                }
+            }
+        ])
+    }
 
     const navigation = useNavigation();
 
     function voltar() {
         navigation.goBack();
-    }
-
-    async function addFavoritos(pokemon: PokemonDTO) {
-        const favoritosStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
-
-        const favoritosParse = favoritosStorage ? JSON.parse(favoritosStorage) as FavoritoDTO[] : [];
-        favoritosParse.push({
-            id: Math.random(),
-            pokemon,
-            usuario: usuario!
-        });
-
-        await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritosParse))
-        const novoFavorito = [{
-
-        }]
     }
 
     if (!pokemon) return <View/>
@@ -87,13 +99,25 @@ function Detalhes() {
                     <Codigo>{pokemon?.code}</Codigo>
                 </ConteudoTitulo>
                 <BotaoHeader
-                    onPress={() => addFavoritos(pokemon)}
+                    onPress={() => {
+                        favorito ? 
+                        removePokemonFav(pokemon) :
+                        addPokemonFav(pokemon)
+                    }}
                 >
-                    <MaterialCommunityIcons
-                        name="heart"
-                        size={22}
-                        color={tema.white}
-                    />
+                    {
+                        favorito ? 
+                        <MaterialCommunityIcons
+                            name="heart"
+                            size={22}
+                            color={tema.background}
+                        /> :
+                        <Feather
+                            name="heart"
+                            size={22}
+                            color={tema.background}
+                        />
+                    }
                 </BotaoHeader>
             </Header>
             <Conteudo>

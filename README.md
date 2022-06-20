@@ -4,6 +4,8 @@
 
 _Aplicação simples feita em treinamento de React Native baseado no universo pokemon (uma pokedéx)_
 
+Inspiração/Créditos: https://github.com/fellipesnoww/interfocus-pokedex-code
+
 ## **👇 Pré requisitos para executar 👇**
 - [Node](https://nodejs.org/en/)
 - [NPM](https://www.npmjs.com/)
@@ -75,6 +77,8 @@ npm run start-server
 ## _en-US_
 
 _A simple application practicing React Native concepts based on the pokemon universe (a pokedex)._
+
+Inspiration/Credits to: https://github.com/fellipesnoww/interfocus-pokedex-code
 
 ## **👇 Requirements 👇**
 - [Node](https://nodejs.org/en/)

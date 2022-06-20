@@ -1,9 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList, Keyboard, TouchableWithoutFeedback } from "react-native";
-
 import Pokebola from '../../assets/icons/pokeball.svg';
-
 import SortAsc from '../../assets/icons/sortasc.svg';
 import SortDesc from '../../assets/icons/sortdesc.svg';
 import SmallCard from "../../components/SmallCard";

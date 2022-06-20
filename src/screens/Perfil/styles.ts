@@ -37,16 +37,6 @@ export const BackgroundImage = styled.View`
     margin-bottom: 30px;
 `;
 
-export const BotaoSair = styled.TouchableOpacity`
-    padding: 15px 30px;
-    background-color: ${({theme}) => theme.primary};
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    margin-top: 30px;
-    margin-bottom: 41px;
-`;
-
 export const Sair = styled.Text`
     font-size: 12px;
     color: ${({theme}) => theme.white};

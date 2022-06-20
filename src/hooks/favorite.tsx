@@ -3,7 +3,6 @@ import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { FavoriteContext } from "../contexts/FavoriteContext";
 import { FavoritoDTO } from "../dtos/FavoritoDTO";
 import { PokemonDTO } from "../dtos/PokemonDTO";
-import { useAuth } from "./auth";
 
 interface FavoriteProviderProps {
     children: ReactNode;
@@ -13,8 +12,6 @@ const FAVORITOS_KEY = "@TreinamentoReactNative:favoritos";
 
 function FavoriteProvider({children}: FavoriteProviderProps) {
     const [favoritos, setFavoritos] = useState<FavoritoDTO[]>([]);
-    const {usuario} = useAuth();
-
     
     async function listarFavoritosStorage() {
         const favoritosStorage = await AsyncStorage.getItem(FAVORITOS_KEY);
@@ -49,12 +46,10 @@ function FavoriteProvider({children}: FavoriteProviderProps) {
                 favoritosParse.push({
                     id: Math.random(),
                     pokemon,
-                    usuario: usuario!
                 });
             } else {
                 console.log("Esse pokemon já está na lista de favoritos");
                 removerStorage(pokemon.id);
-              
             }
         }
         await AsyncStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritosParse))
